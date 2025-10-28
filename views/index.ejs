@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Add your CSS file -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecast</h1>
+        
+        <form action="/" method="POST">
+            <input 
+                type="text" 
+                name="city" 
+                placeholder="Enter city name"
+                required
+            >
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <% if (locals.error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+
+        <% if (weather) { %>
+            <div class="weather-card">
+                <div class="weather-icon">
+                    <img src="https://openweathermap.org/img/wn/<%= weather.icon %>@2x.png" 
+                         alt="<%= weather.description %>">
+                </div>
+                <h2><%= weather.city %>, <%= weather.country %></h2>
+                <div class="temperature"><%= weather.temp %>°C</div>
+                <div class="description"><%= weather.description %></div>
+                <div class="details">
+                    <p>Feels like: <%= weather.feels_like %>°C</p>
+                    <p>Humidity: <%= weather.humidity %>%</p>
+                    <p>Wind: <%= weather.wind %> m/s</p>
+                </div>
+            </div>
+        <% } %>
+
+        <div id="loading" class="loading" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Add loading state
+        document.querySelector('form').addEventListener('submit', function() {
+            document.getElementById('loading').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
