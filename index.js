@@ -1,10 +1,14 @@
 import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
-const API_KEY = "453820b3ec1267e253b73d9b79184f2a";
+const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.API_KEY;
 const BASE_URL = "http://api.openweathermap.org/data/2.5";
 const GEO_URL = "http://api.openweathermap.org/geo/1.0";
 
