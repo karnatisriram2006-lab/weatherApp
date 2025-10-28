@@ -2,9 +2,25 @@ import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
 
-// Load environment variables
-dotenv.config();
+// Get current directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load environment variables with specific path
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Add API key validation
+if (!process.env.API_KEY) {
+    console.error('ERROR: API_KEY is not defined in .env file');
+    process.exit(1);
+}
+
+// Debug log (remove in production)
+console.log('API Key status:', process.env.API_KEY ? 'Loaded successfully' : 'Missing');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
